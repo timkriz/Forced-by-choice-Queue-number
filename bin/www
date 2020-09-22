@@ -123,7 +123,7 @@ io.on('connection', socket => {
   var clientIp = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
   if (clientIp.length > 20) {
     var res = clientIp.split(",");
-    clientIp = res[1];
+    clientIp = res[0];
   }
   users.createClient(clientIp);
 
