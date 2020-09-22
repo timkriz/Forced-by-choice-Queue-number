@@ -120,7 +120,11 @@ io.on('connection', socket => {
 
   // New client accessed the page
   //var clientIp = socket.request.connection.remoteAddress;
-  var clientIp = socket.handshake.headers['x-real-ip'] || socket.request.connection.remoteAddress;
+  var clientIp = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
+  if (clientIp.length > 20) {
+    var res = clientIp.split(",");
+    clientIp = res[1];
+  }
   users.createClient(clientIp);
 
   // First connection on webpage
