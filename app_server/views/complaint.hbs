@@ -1,0 +1,45 @@
+<div class="container justify-content-center" style = "height: 100%">
+    <div id = "yourNumberIs">
+        <h1 id = "yourNumberIsh1" style = "text-align: left">Write a complaint about your waiting number:</h1>
+    </div>
+    <div class="comment">
+        <textarea class="textinput" placeholder="Write here ..." spellcheck="false"></textarea>
+    </div>
+    <div>
+        <button type="button" onclick = "location.href='/justagame';" class="btn btn-dark float-right buttonsubmit" >SUBMIT</button>
+    </div>
+    
+    <nav class="navbar navbar-expand fixed-bottom custom-navbar-style mb-4" style = "position: absolute;">
+        <div class="navbar-collapse collapse justify-content-center">
+            <ul class="nav pt-1 justify-content-between">
+                <li class="nav-item">
+                    <a class="nav-link" href="..">Back</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/trade">Trade<br> numbers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Control<br> visitors</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+  var _originalSize = $(window).width() + $(window).height()
+  $(window).resize(function(){
+    if($(window).width() + $(window).height() != _originalSize){
+      console.log("keyboard show up");
+      //alert("juhu");
+      $('.navbar').hide(); 
+    }else{
+      console.log("keyboard closed");
+      //alert("back")
+      $('.navbar').show(); 
+    }
+  });
+});
+</script>

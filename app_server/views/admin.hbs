@@ -1,0 +1,18 @@
+<div class="container justify-content-center" style = "height: 100%">
+        <h1 id = "justagame">ADMIN</h1>
+        <button id = "myBtn"> Delete users from database</button>
+</div>
+
+<script src = "/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    var x = document.getElementById("myBtn");
+    x.addEventListener("click", function() {
+        console.log("DELETED USERS DATABASE");
+        socket.emit('deleteUsersDatabase', {});
+    });
+
+    socket.on('deletedDatabase', (message) => {
+    alert(message);
+  });
+</script>

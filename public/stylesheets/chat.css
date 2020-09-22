@@ -1,0 +1,235 @@
+/* Chat Page */
+
+#tradeButton {
+    background: black;
+    border-radius: 0;
+}
+
+
+.chat-container {
+	max-width: 1100px;
+	background: #fff;
+    margin: 30px auto;
+    margin-top: 0px;
+	overflow: hidden;
+}
+
+.chat-header {
+	background: var(--dark-color-a);
+	color: rgb(0, 0, 0);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#username1-name {
+    text-align: right;
+}
+
+.chat-main {
+    display: block;
+	/*display: grid;*/
+	grid-template-columns: 1fr 3fr;
+}
+
+.chat-sidebar {
+	background: var(--dark-color-b);
+	color: #fff;
+	padding: 20px 20px 60px;
+	overflow-y: scroll;
+}
+
+.chat-sidebar h2 {
+	font-size: 20px;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.chat-sidebar h3 {
+	margin-bottom: 15px;
+}
+
+.chat-sidebar ul li {
+	padding: 10px 0;
+}
+
+.chat-messages {
+	padding: 30px;
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
+.chat-messages .message {
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: var(--light-color);
+	border-radius: 5px;
+}
+
+.chat-messages .message .meta {
+	font-size: 15px;
+	font-weight: bold;
+	color: var(--dark-color-b);
+	opacity: 0.7;
+	margin-bottom: 7px;
+}
+
+.chat-messages .message .meta span {
+	color: #777;
+}
+
+.chat-form-container {
+	padding: 20px 30px;
+	background-color: var(--dark-color-a);
+}
+
+.chat-form-container form {
+	display: flex;
+}
+
+.chat-form-container input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+    flex: 1;
+    border: 2px solid black;
+}
+
+/* Join Page */
+.join-container {
+	max-width: 500px;
+	margin: 80px auto;
+	color: #fff;
+}
+
+.join-header {
+	text-align: center;
+	padding: 20px;
+	background: var(--dark-color-a);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.join-main {
+	padding: 30px 40px;
+	background: var(--dark-color-b);
+}
+
+.join-main p {
+	margin-bottom: 20px;
+}
+
+.join-main .form-control {
+	margin-bottom: 20px;
+}
+
+.join-main label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.join-main input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+}
+
+.join-main select {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+}
+
+.join-main .btn {
+	margin-top: 20px;
+	width: 100%;
+}
+
+@media (max-width: 700px) {
+	.chat-main {
+		display: block;
+	}
+
+	.chat-sidebar {
+		display: none;
+    }
+    #username1-name, #username2-name {
+        font-size: 1.2em;
+    }
+    
+}
+
+/* POP UP */
+#overlay, #overlayRes {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    text-align:center;
+    z-index: 1000;
+ }
+ .popUpWindow, .popUpWindowRes {
+     /*position:  absolute;
+     top: 50%;*/
+    margin: 70px auto;
+    padding: 20px;
+    width: 70%;
+    position: relative;
+    transition: all 5s ease-in-out;
+    background-color: white;
+    border: 4px solid black;
+ }
+.popupCloseButton, .popupCloseButtonRes {
+    background-color: black;
+    color: white;
+    /*border: 3px solid #999;
+    /*border-radius: 50px;*/
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton:hover, .popupCloseButtonRes:hover {
+    background-color: #ccc;
+}
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+.yesNoSegment {
+    padding: 15px;
+	display: flex;
+	align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#tradeButtonYes , #tradeButtonNo, #tradeButtonYesRes, #tradeButtonNoRes {
+    color: white; 
+    background-color: black;
+    border-radius: 0;
+    border: none;
+    width: 75px;
+}

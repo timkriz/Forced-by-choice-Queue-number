@@ -1,0 +1,56 @@
+.list-group {
+    padding-top: 10px;
+    padding-left: 50px;
+    overflow: auto;
+    max-height: 60%;
+}
+.list-group-item {
+    border: none;
+}
+.custom-list-item-a {
+    font-size: 4em;
+    text-decoration: underline;
+    margin: -5px;
+}
+.custom-list-item-a:hover {
+    background-color: transparent;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.list-group::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .list-group {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+@media (max-width: 480px) {
+    #bootstrap-overrides{
+        padding: 5px;
+      }
+}
+@media (max-height: 640px) {
+    .list-group {
+        padding-left: 50px;
+        overflow: auto;
+        max-height: 40%;
+    }
+    #yourNumberIs{
+        margin-bottom : 40px;
+    }
+}
+@media (max-height: 700px) {
+    @media (max-width: 350px) {
+        .list-group {
+            padding-left: 50px;
+            overflow: auto;
+            max-height: 40%;
+        }
+        #yourNumberIs{
+            margin-bottom : 40px;
+        }
+    }
+}

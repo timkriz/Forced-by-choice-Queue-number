@@ -1,15 +1,18 @@
 {
-  "name": "queue_no2",
-  "version": "1.0.0",
-  "description": "Queue numbers web app",
-  "main": "server.js",
+  "name": "queue-no2",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server.js"
+    "start": "node ./bin/www"
   },
-  "author": "Tim K",
-  "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "hbs": "~4.0.4",
+    "http-errors": "~1.6.3",
+    "moment": "^2.28.0",
+    "morgan": "~1.9.1",
+    "socket.io": "^2.3.0"
   }
 }

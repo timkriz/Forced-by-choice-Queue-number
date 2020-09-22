@@ -1,0 +1,34 @@
+<div class="container justify-content-center" style = "height: 100%; min-height:100%">
+    <div id = "yourNumberIs">
+        <h1 id = "yourNumberIsh1" style = "text-align: left">Trade your number with people around you:</h1>
+    </div>
+    <div id = "trade-number-list" class="list-group list-unstyled">
+       <!-- {{#if queueNumbers.length}}
+            {{#each queueNumbers as |number|}}
+            <a href="#" class="custom-list-item-a">{{number.username}}</a>
+            {{/each}}
+            {{else}}
+            <a href="#" class="custom-list-item-a" style = "font-size: 2em;">There is no one around.</a>
+        {{/if}}-->
+    </div>
+    <div style = "height: 15%;">
+        <nav class="navbar navbar-expand fixed-bottom custom-navbar-style mb-4">
+            <div class="navbar-collapse collapse justify-content-center">
+                <ul class="nav pt-1 justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link" href="..">Back</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/complaint">Complain<br> about it</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/control">Control<br> visitors</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<script src = "/socket.io/socket.io.js"></script>
+<script src = "/javascripts/trade.js"></script>

@@ -1,0 +1,30 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: Helvetica, Arial, sans-serif;
+}
+html {
+  height: 100%
+}
+a {
+  color: #1f1f1f;
+}
+p {
+	font-size: small;
+}
+#bootstrap-overrides{
+  font-family: Helvetica, Arial, sans-serif;
+  letter-spacing: 2px;
+  padding: 20px;
+  height: 100%;
+}
+#bootstrap-overrides a {
+  color: black;
+}
+
+.btn {
+	cursor: pointer;
+	padding: 5px 15px;
+	background: var(--light-color);
+	color: var(--dark-color-a);
+	border: 0;
+	font-size: 17px;
+}

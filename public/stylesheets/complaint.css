@@ -1,0 +1,66 @@
+.comment {
+    float: left;
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.commenter {
+    float: left;
+}
+
+.commenter img {
+    width: 35px;
+    height: 35px;
+}
+
+.comment-text-area {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.textinput {
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: 2px;
+    padding: 20px;
+    float: left;
+    width: 100%;
+    min-height: 250px;
+    outline: none;
+    resize: none;
+    border: 2px solid black;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    font-style: italic;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+    font-style: italic;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+    font-style: italic;
+  }
+
+.buttonsubmit {
+    background-color: black;
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: 2px;
+    color: white;
+    border: none;
+    border-radius: 0;
+}
+
+@media (max-width: 350px) {
+    @media (max-height: 600px) {
+        .textinput {
+            min-height: 150px;
+        }
+    }
+}

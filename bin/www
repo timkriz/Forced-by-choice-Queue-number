@@ -1,0 +1,190 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('queue-no2:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+/**
+ * SOCKET IO CONNECTION
+ */
+
+const io = require('socket.io')(server);
+const formatMessage = require('../utils/messages');
+const users = require('../utils/users');
+const rooms = require('../utils/rooms');
+const botName = '';
+
+io.on('connection', socket => {
+  socket.on('joinRoom', ({ roomID, username1, username2 }) => {
+    if(roomID && username1 && username2){
+      rooms.createRoom(roomID.toString(), username1, username2);
+
+      socket.join(roomID.toString());
+
+      // Display messages that were sent before opened chat
+      
+        var allMessagesInTheRoom = rooms.getAllMessagesInRoom(roomID.toString());
+        socket.emit('allMessagesInRoom', allMessagesInTheRoom);
+      
+      
+
+      // Now chatting message
+      socket.emit('message', formatMessage(botName, 'Now chatting with user '+ username2.toString()));
+    }
+  });
+
+  // New client accessed the page
+  var clientIp = socket.request.connection.remoteAddress;
+  users.createClient(clientIp);
+
+  // First connection on webpage
+  socket.emit('first_connection', formatMessage(users.getClientsQueueNumber(clientIp), 'Your queue number'));
+
+  // Send list of all clients
+  socket.emit('all_clients', users.getAllClients());
+
+  // Send list of chat peers
+  socket.emit('ChatPeers', users.getCurrentUser(clientIp).chatPeers);
+
+  // Listen for chat message 
+  socket.on('chatMessage', ({roomID, msg, username1, username2}) => {
+    const user = users.getCurrentUser(clientIp);
+
+    // Store message 
+    rooms.pushNewMessage(roomID.toString(), formatMessage(user.username, msg));
+
+    // Mark opened chat for both users
+    users.markOpenedChatForUser(username1, username2);
+    users.markOpenedChatForUser(username2, username1);
+
+    io.to(roomID.toString()).emit('message', formatMessage(user.username, msg));
+  });
+
+  // When trade button is clicked
+  socket.on('tradeNumber', ({ roomID, username1, username2 }) => {
+    socket
+    .to(roomID.toString())
+    .emit ('confirmTradeProcess', { roomID, username1, username2 });
+  });
+
+  // When user 2 confirms trade process
+  socket.on('approvedTrade', ({ roomID, username1, username2 }) => {
+    if(users.switchQueueNumbers(clientIp, username1, username2)){
+      rooms.wipeChatLogs(roomID.toString());
+      users.wipeChatPeers(username1, username2);
+      socket
+      .to(roomID.toString())
+      .emit ('approvedTradeToUser', { roomID, username1, username2 });
+    }
+    else {
+      socket.on('disapprovedTrade', ({ roomID, username1, username2 }) => {
+        socket
+        .to(roomID.toString())
+        .emit ('disapprovedTradeToUser', { roomID, username1, username2 });
+      });
+    }
+  });
+
+  // When user 2 rejects trade process
+  socket.on('disapprovedTrade', ({ roomID, username1, username2 }) => {
+    socket
+    .to(roomID.toString())
+    .emit ('disapprovedTradeToUser', { roomID, username1, username2 });
+  });
+
+  socket.on('getMeMyQueueNumber', ({usernameEl}) => {
+    console.log("getMeMyQueueNumber šel čez");
+    socket.emit('first_connection', formatMessage(users.getClientsQueueNumber(clientIp), 'Your queue number'));
+  });
+
+  socket.on('deleteUsersDatabase', ({}) => {
+    users.deleteAllUsers();
+    rooms.deleteAllRooms();
+    socket.emit('deletedDatabase', "You deleted users and rooms. Fresh restart.");
+  });
+});

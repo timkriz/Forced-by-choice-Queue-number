@@ -1,0 +1,82 @@
+<div class="chat-container">
+  <header class="chat-header">
+      <a href="/trade" class="btn" style="
+    margin-bottom: 20px">Back</a>
+      <a id = "tradeButton"href="#" onclick='return tradeButtonClick()' class="btn" style="
+    margin-bottom: 20px; color: white">TRADE</a>
+    </header>
+  <!--<a href="/trade" class="btn" style="
+    margin-bottom: 20px">Back</a>-->
+    <header class="chat-header" style = "
+    border-bottom: 3px solid rgb(0, 0, 0)">
+      <h1 id = "username2-name" class="fas fa-smile"> User: {{username2}}</h1>
+      <h1 id = "username1-name" class="fas fa-smile"> You: {{username1}}</h1>
+    </header>
+    <main class="chat-main">
+     <!-- <div class="chat-sidebar">
+        <h3><i class="fas fa-comments"></i> Room Name:</h3>
+        <h2 id="username2-name">{{username1}}</h2>
+        <h3><i class="fas fa-users"></i> Users</h3>
+        <ul id="users">
+          <li id="username1-name">{{username2}}</li>
+        </ul>
+      </div>-->
+      <div class="chat-messages">
+				
+      </div>
+    </main>
+    <div class="chat-form-container">
+      <form id="chat-form">
+        <input
+          id="msg"
+          type="text"
+          placeholder="Enter Message"
+          required
+          autocomplete="off"
+        />
+        <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+      </form>
+    </div>
+  </div>
+
+
+<!-- POP UP -->
+<div id="overlay">
+    <div class = "popUpWindow">
+        <div class="popupCloseButton">&times;</div>
+        <!--Text inside pop up -->
+        <div>
+          <p>Are you certain </br> you want to trade </br> your number</p>
+          <h1>{{username1}}</h1>
+          <p>for the number</p>
+          <h1>{{username2}}</h1>
+        </div>
+        <div class = "yesNoSegment">
+          <a id = "tradeButtonYes" href="#" class="btn" style = "color: white">YES</a>
+          <a id = "tradeButtonNo" href="#" class="btn"  style = "color: white">NO</a>
+        </div>
+    </div>
+</div>
+
+<div id="overlayRes">
+    <div class = "popUpWindowRes">
+        <div class="popupCloseButtonRes">&times;</div>
+        <!--Text inside pop up -->
+        <div>
+          <p>User {{username2}} wants to trade numbers.</p>
+          <p>Are you certain </br> you want to trade </br> your number</p>
+          <h1>{{username1}}</h1>
+          <p>for the number</p>
+          <h1>{{username2}}</h1>
+        </div>
+        <div class = "yesNoSegment">
+          <a id = "tradeButtonYesRes" href="#" class="btn" style = "color: white">YES</a>
+          <a id = "tradeButtonNoRes" href="#" class="btn"  style = "color: white">NO</a>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src = "/socket.io/socket.io.js"></script>
+<script src = "/javascripts/chat.js"></script>
