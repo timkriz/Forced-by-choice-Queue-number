@@ -3,7 +3,8 @@
 
 <div class="justify-content-center" style="text-align: center;">
     <div id = "yourNumberIs">
-        <h1 id = "yourNumberIsh1" style = "margin-bottom:5px;">People inside:</h1>
+        <h1 id = "yourNumberIsh1" style = "margin-bottom:5px; text-align: left">You are now tracking the visitors
+inside the building:</h1>
     </div>
     <div id = "draw-shapes" style="text-align:center;"></div>
 
@@ -63,41 +64,45 @@ function init(){
      var c = canvas.getContext('2d');
 
      var container = {x:0,y:0,width:350,height:500};
-     var circles = [{x:300,y:200,r:3,color:0,vx:0.2,vy:0.2},
-                    {x:300,y:200,r:3,color:0,vx:-0.2,vy:0.2},
-                    {x:200,y:145,r:3,color:0,vx:0.2,vy:-0.2},
-                    {x:60,y:100,r:3,color:0,vx:0.2,vy:-0.2},
-                    {x:100,y:50,r:3,color:0,vx:-0.2,vy:-0.2},
+     var speed = 0.2;
+     var circles = [{x:300,y:200,r:3,color:0,vx:speed,vy:speed},
+                    {x:300,y:200,r:3,color:0,vx:-speed,vy:speed},
+                    {x:200,y:145,r:3,color:0,vx:speed,vy:-speed},
+                    {x:60,y:100,r:3,color:0,vx:speed,vy:-speed},
+                    {x:100,y:50,r:3,color:0,vx:-speed,vy:-speed},
+                    {x:10,y:50,r:3,color:0,vx:speed,vy:-speed},
+                    {x:220,y:110,r:3,color:0,vx:-speed,vy:speed},
+                    {x:130,y:10,r:3,color:0,vx:speed,vy:speed},
+                    {x:111,y:20,r:3,color:0,vx:speed,vy:-speed},
+                    {x:111,y:20,r:3,color:0,vx:speed,vy:-speed},
 
-
-                    
-                    {x:400,y:350,r:3,color:0,vx:-0.2,vy:-0.2},
-                    {x:410,y:350,r:3,color:0,vx:-0.2,vy:-0.2}
+                    {x:330,y:170,r:3,color:0,vx:-speed,vy:-speed},
+                    {x:280,y:200,r:3,color:0,vx:speed,vy:speed},
+                    {x:40,y:140,r:3,color:0,vx:-speed,vy:speed},
+                    {x:160,y:145,r:3,color:0,vx:speed,vy:-speed},
+                    {x:60,y:5,r:3,color:0,vx:speed,vy:-speed},
+                    {x:330,y:10,r:3,color:0,vx:-speed,vy:-speed},
+                    {x:80,y:60,r:3,color:0,vx:speed,vy:-speed},
+                    {x:8,y:77,r:3,color:0,vx:-speed,vy:speed},
+                    {x:130,y:15,r:3,color:0,vx:-speed,vy:speed},
+                    {x:90,y:80,r:3,color:0,vx:speed,vy:-speed},
+                    {x:210,y:45,r:3,color:0,vx:speed,vy:-speed},
      ];
      var circles_outside = [                    
-                    {x:280,y:320,r:3,color:0,vx:-0.2,vy:0.2},
-                    {x:300,y:310,r:3,color:0,vx:0.2,vy:-0.2},
-                    {x:310,y:310,r:3,color:0,vx:0.2,vy:0.2}
+                    {x:280,y:320,r:3,color:0,vx:-speed,vy:speed},
+                    {x:290,y:310,r:3,color:0,vx:speed,vy:-speed},
+                    {x:260,y:310,r:3,color:0,vx:speed,vy:speed},
+                    {x:205,y:260,r:3,color:0,vx:-speed,vy:speed}
      ];
-     var outsideArea = {x:250,y:290,width:100,height:100};
-
-     var plan = [{x:2,y:2},
-     {x:348,y:2}, {x:348,y:250}, {x:250,y:250}, {x:250,y:185},
-     {x:182,y:185}, {x:182,y:308}, {x:110,y:308}, {x:110,y:270},
-     {x:15,y:270}, {x:15,y:161}, {x:48,y:161}, {x:48,y:67},
-     {x:2,y:67}, {x:2,y:2}
+     var outsideArea = {x:200,y:250,width:100,height:100};
+    var planBottom = 205;
+    var planLeft = 2;
+    var planRight = 348;
+    var planGap = 50;
+     var plan = [{x:planRight/2-planGap,y:planBottom},
+     {x:planLeft,y:planBottom}, {x: planLeft, y: planLeft}, {x: planRight, y: planLeft}, {x:planRight,y:planBottom}, 
+     {x:planRight/2+planGap,y:planBottom}
      ]
-     var left1 = plan[12].x;
-     var left2 = plan[12].y;
-     var left3 = plan[11].y;
-     var left4 = plan[10].x;
-     var left5 = plan[9].y;
-     
-     var bottom1 = plan[8].x;
-     var bottom2 = plan[5].x;
-     var bottom3 = plan[4].y;
-     var bottom4 = plan[4].x;
-     var bottom5 = plan[3].y;
 
 
      function draw(){
@@ -115,75 +120,13 @@ function init(){
 
             /** Uper border **/
             //bottom limit %% top limit
-             if((circles[i].y + circles[i].vy + circles[i].r > plan[6].y) || (circles[i].y - circles[i].r + circles[i].vy < container.y)){
+             if((circles[i].y + circles[i].vy + circles[i].r > planBottom) || (circles[i].y - circles[i].r + circles[i].vy < planLeft)){
                 circles[i].vy = - circles[i].vy;
              }
              //right limit && left limit
-             if((circles[i].x + circles[i].vx + circles[i].r > container.x + container.width) || (circles[i].x - circles[i].r + circles[i].vx < container.x)){
+             if((circles[i].x + circles[i].vx + circles[i].r > planRight) || (circles[i].x - circles[i].r + circles[i].vx < planLeft)){
                 circles[i].vx = - circles[i].vx;
              }
-             /**Left border 1**/
-             if(circles[i].x - circles[i].r + circles[i].vx < left1){
-                 if((circles[i].y + circles[i].vy + circles[i].r < left3) && (circles[i].y - circles[i].r + circles[i].vy > left2)){
-                     circles[i].vx = - circles[i].vx;
-                 }
-             }
-             /**Left border 2**/
-             if(circles[i].x - circles[i].r + circles[i].vx < left4){
-                 if((circles[i].y + circles[i].vy + circles[i].r > left3) && (circles[i].y - circles[i].r + circles[i].vy < left5)){
-                     circles[i].vx = - circles[i].vx;
-                 }
-             }
-             /**Left border 3 horizontal**/
-             if(circles[i].y < left2 && circles[i].x < left1){
-                if(circles[i].y + circles[i].vy + circles[i].r > left2){
-                    circles[i].vy = - circles[i].vy;
-                }
-             }
-             /**Left border 4 horizontal**/
-             if(circles[i].y < left5 && circles[i].y > left3 && circles[i].x < left1){
-                if(circles[i].y - circles[i].r + circles[i].vy < left3){
-                    circles[i].vy = - circles[i].vy;
-                }
-             }
-
-             /** Bottom border horizontal**/
-             if(circles[i].y < left5 && circles[i].y > left3 && circles[i].x < bottom1){
-                if(circles[i].y + circles[i].vy + circles[i].r > left5){
-                    circles[i].vy = - circles[i].vy;
-                }
-             }
-              /** Bottom border 1 vertical**/
-             if(circles[i].x > bottom1 && circles[i].y > left5){
-                 if(circles[i].x - circles[i].r + circles[i].vx < bottom1){
-                    circles[i].vx = - circles[i].vx;
-                }
-             }
-              /** Bottom border 2 vertical**/
-             if(circles[i].x < bottom2 && circles[i].y > bottom3){
-                 if(circles[i].x + circles[i].vx + circles[i].r > bottom2){
-                    circles[i].vx = - circles[i].vx;
-                }
-             }
-              /** Bottom border 3 horizontal**/
-             if(circles[i].x > bottom2 && circles[i].x < bottom4 && circles[i].y < bottom3){
-                if(circles[i].y + circles[i].vy + circles[i].r > bottom3){
-                    circles[i].vy = - circles[i].vy;
-                }
-             }
-              /** Bottom border 4 vertical**/
-             if(circles[i].x > bottom4 && circles[i].y > bottom3){
-                if(circles[i].x - circles[i].r + circles[i].vx < bottom4){
-                    circles[i].vx = - circles[i].vx;
-                }
-             }
-              /** Bottom border 5 horizontal**/
-             if(circles[i].x > bottom4 && circles[i].y > bottom3){
-                if(circles[i].y + circles[i].vy + circles[i].r >bottom5){
-                    circles[i].vy = - circles[i].vy;
-                }
-             }
-
             circles[i].x +=circles[i].vx;
              circles[i].y +=circles[i].vy;
          }
@@ -206,7 +149,7 @@ function init(){
          
             /*Draw plan */ 
         c.fillStyle = 'white';
-        c.lineWidth = "1";
+        c.lineWidth = "1.5";
         c.strokeStyle = 'black';
         c.beginPath();
         c.moveTo(plan[0].x, plan[0].y);
@@ -214,10 +157,6 @@ function init(){
             c.lineTo(plan[j].x, plan[j].y);
             c.stroke();
         }
-        c.font = "15px Arial";
-        c.fillStyle = "black";
-        c.textAlign = "center";
-        c.fillText("Enterance", 150, 340);
 
                 requestAnimationFrame(draw);
 
@@ -244,13 +183,13 @@ function init(){
     <div class="navbar-collapse collapse justify-content-center">
         <ul class="nav pt-1 justify-content-between">
             <li class="nav-item">
-                <a class="nav-link" href="/trade">Trade<br> number</a>
+                <a class="nav-link" href="/home">Back</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/complaint">Complain<br> about it</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/control">Control<br> visitors</a>
+                <a class="nav-link" href="/trade">Trade<br> numbers</a>
             </li>
         </ul>
     </div>

@@ -1,6 +1,9 @@
 <div class="container justify-content-center" style = "height: 100%">
         <h1 id = "justagame">ADMIN</h1>
         <button id = "myBtn"> Delete users from database</button>
+        <div id = "trade-number-list" class="list-group list-unstyled">
+
+        </div>
 </div>
 
 <script src = "/socket.io/socket.io.js"></script>
@@ -15,4 +18,24 @@
     socket.on('deletedDatabase', (message) => {
     alert(message);
   });
+
+/** make list **/
+socket.on('all_clients', message => {
+    outputMessage(message);
+})
+
+function outputMessage(message) {
+    for (var i = 0; i<message.length; i++) {
+       
+        const listEl = document.createElement('a');
+        listEl.classList.add('custom-list-item-a');
+        
+        listEl.setAttribute('id', message[i].username)
+        listEl.innerHTML = message[i].username;
+        
+        var container = document.getElementById('trade-number-list');
+        if(i == 0) document.getElementById('trade-number-list').appendChild(listEl);
+        else container.insertBefore(listEl, container.firstChild);
+    }
+}
 </script>

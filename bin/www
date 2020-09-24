@@ -89,7 +89,7 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-/**
+/*
  * SOCKET IO CONNECTION
  */
 
@@ -119,26 +119,29 @@ io.on('connection', socket => {
   });
 
   // New client accessed the page
-  //var clientIp = socket.request.connection.remoteAddress;
-  var clientIp = socket.handshake.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
-  if (clientIp.length > 20) {
-    var res = clientIp.split(",");
-    clientIp = res[0];
-  }
-  users.createClient(clientIp);
+  var cookiesFromHeader = socket.handshake.headers['cookie'];
+  var clientID = getCookieValue("cookieName",cookiesFromHeader);
+  console.log(clientID);
+  
+  users.createClient(clientID);
 
   // First connection on webpage
-  socket.emit('first_connection', formatMessage(users.getClientsQueueNumber(clientIp), 'Your queue number'));
+  socket.emit('first_connection', formatMessage(users.getClientsQueueNumber(clientID), 'Your queue number'));
 
-  // Send list of all clients
-  socket.emit('all_clients', users.getAllClients());
+  // Send list of all groups
+  socket.emit('all_groups', users.getAllGroups());
+
+  // Send list of users in this group
+  socket.on('get_users_in_group', ({ groupID }) => {
+    socket.emit('users_in_group', users.getUsersInGroup(groupID));
+  });
 
   // Send list of chat peers
-  socket.emit('ChatPeers', users.getCurrentUser(clientIp).chatPeers);
+  socket.emit('ChatPeers', users.getCurrentUser(clientID).chatPeers);
 
   // Listen for chat message 
   socket.on('chatMessage', ({roomID, msg, username1, username2}) => {
-    const user = users.getCurrentUser(clientIp);
+    const user = users.getCurrentUser(clientID);
 
     // Store message 
     rooms.pushNewMessage(roomID.toString(), formatMessage(user.username, msg));
@@ -159,7 +162,7 @@ io.on('connection', socket => {
 
   // When user 2 confirms trade process
   socket.on('approvedTrade', ({ roomID, username1, username2 }) => {
-    if(users.switchQueueNumbers(clientIp, username1, username2)){
+    if(users.switchQueueNumbers(clientID, username1, username2)){
       rooms.wipeChatLogs(roomID.toString());
       users.wipeChatPeers(username1, username2);
       socket
@@ -183,8 +186,8 @@ io.on('connection', socket => {
   });
 
   socket.on('getMeMyQueueNumber', ({usernameEl}) => {
-    console.log("getMeMyQueueNumber šel čez");
-    socket.emit('first_connection', formatMessage(users.getClientsQueueNumber(clientIp), 'Your queue number'));
+    console.log("getMeMyQueueNumber");
+    socket.emit('first_connection', formatMessage(users.getClientsQueueNumber(clientID), 'Your queue number'));
   });
 
   socket.on('deleteUsersDatabase', ({}) => {
@@ -192,4 +195,16 @@ io.on('connection', socket => {
     rooms.deleteAllRooms();
     socket.emit('deletedDatabase', "You deleted users and rooms. Fresh restart.");
   });
+  socket.on('disconnect', function () {
+    io.sockets.emit('user disconnected');
+  });
 });
+
+
+
+
+
+function getCookieValue(a, cookie) {
+  var b = cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
+}

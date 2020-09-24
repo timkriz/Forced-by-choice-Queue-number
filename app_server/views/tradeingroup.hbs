@@ -1,15 +1,18 @@
 <div class="container justify-content-center" style = "height: 100%; min-height:100%">
     <div id = "yourNumberIs">
-        <h1 id = "yourNumberIsh1" style = "text-align: left">Trade your group number with people from other groups :</h1>
+        <h1 id = "yourNumberIsh1" style = "text-align: left">Ask someone from group <b>{{groupID}}</b>
+            to trade numbers with you :</h1>
+        <p id = "groupID" style ="display:none">{{groupID}}</p>
     </div>
-    <div id = "trade-number-list" class="list-group list-unstyled">
+
+    <div id = "trade-user-numbers-list" class="list-group list-unstyled" style = "display: inline-block;">
     </div>
     <div style = "height: 15%;">
         <nav class="navbar navbar-expand fixed-bottom custom-navbar-style mb-4">
             <div class="navbar-collapse collapse justify-content-center">
                 <ul class="nav pt-1 justify-content-between">
                     <li class="nav-item">
-                        <a class="nav-link" href="/home">Back</a>
+                        <a class="nav-link" href="..">Back</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/complaint">Complain<br> about it</a>
@@ -24,4 +27,4 @@
 </div>
 
 <script src = "/socket.io/socket.io.js"></script>
-<script src = "/javascripts/trade.js"></script>
+<script src = "/javascripts/tradeingroup.js"></script>

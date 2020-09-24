@@ -8,10 +8,11 @@ socket.on('first_connection', message =>{
 });
 
 //Message from server
-socket.on('all_clients', message => {
+socket.on('all_groups', message => {
+    console.log(message);
     outputMessage(message);
 })
-
+/*
 socket.on('ChatPeers', chat_peers => {
     console.log(chat_peers);
     for (var i=0; i<chat_peers.length; i++){
@@ -22,42 +23,37 @@ socket.on('ChatPeers', chat_peers => {
         el.appendChild(chatting);
     }
     //chat_peers = message;
-})
+})*/
 
 // Output message to DOM
 function outputMessage(message) {
 
-    if (message.length < 2) {
+    if (message.length < 1) {
         const listEl = document.createElement('a');
         listEl.classList.add('custom-list-item-a');
         listEl.setAttribute('style', "font-size: 2em")
-        listEl.innerHTML = "There is no one around";
+        listEl.innerHTML = "There is no group queue numbers";
         document.getElementById('trade-number-list').appendChild(listEl);  
     }
-    for (var i = 0; i<message.length; i++) {
+    for (var i = 0; i< message.length; i++) {
         console.log(i + " number:  " + clients_queue_number);
-        console.log(i + " message[i].username:  " + message[i].username);
-        if (clients_queue_number == message[i].username) {
+        console.log(i + " message[i].username:  " + message[i].id);
+
+        var existingEl = document.getElementById(message[i].id);
+        if(existingEl || clients_queue_number == message[i].id) {
             continue
-        } 
-        const listEl = document.createElement('a');
-        listEl.classList.add('custom-list-item-a');
-        
-        listEl.setAttribute('id', message[i].username)
-        listEl.setAttribute("href", "chat/"+ clients_queue_number + '/' + message[i].username);
-        listEl.innerHTML = message[i].username;
+        }
+        else {
+            const listEl = document.createElement('a');
+            listEl.classList.add('custom-list-item-a');
+            
+            listEl.setAttribute('id', message[i].id)
+            listEl.setAttribute("href", "tradeingroup/"+ message[i].id);
+            listEl.innerHTML = message[i].id;
 
-        /*// CHATTING
-        const chatting = document.createElement('p');
-        chatting.innerHTML = "chatting";
-        console.log(String(message[i].username));
-        console.log("chat_peers: ", chat_peers)
-        if(chat_peers.includes(String(message[i].username))){
-            listEl.appendChild(chatting);
-        }*/
-
-        var container = document.getElementById('trade-number-list');
-        if(i == 0) document.getElementById('trade-number-list').appendChild(listEl);
-        else container.insertBefore(listEl, container.firstChild);
+            var container = document.getElementById('trade-number-list');
+            if(i == 0) document.getElementById('trade-number-list').appendChild(listEl);
+            else container.insertBefore(listEl, container.firstChild);
+        }
     }
 }

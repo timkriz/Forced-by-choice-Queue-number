@@ -1,39 +1,74 @@
 
 var clients = [];
+var groups = [{id:'541', clients: []}, {id:'356', clients: []}, 
+              {id:'987', clients: []}, {id:'002', clients: []}];
+
+var clientIDincrement = 1;
 
 class client {
-    constructor(ip_address) {
-      this.clients_ip = ip_address;
+    constructor(cookie) {
+      this.cookie = cookie;
       this.username = 0;
       this.chatPeers = [];
+      this.groupNumber = 0;
     }
   }
+class group {
+  constructor(ip_address) {
+    this.id = id;
+    this.clients = [];
+  }
+}
 
 // Create and push client to array when they open the website
-function createClient(clientIp) {
-    const found = clients.some(el => el.clientIp === clientIp);
+function createClient(cookie) {
+    const found = clients.some(el => el.cookie === cookie);
     if (!found){
-    // Get clients queue number
-        var random = Math.floor(Math.random()*(999-100+1)+100);
-        const client = { clientIp, username: random, chatPeers : [] };  //CREATE CLIENT
+    // Create client object
+        var assignedGroupNumber = getAssignedGroupNumber(clientIDincrement);
+        const client = { cookie, username: clientIDincrement, chatPeers : [], groupNumber: assignedGroupNumber };
+        clientIDincrement++;
         clients.push(client);
         return client
     }
-    //console.log(clients);
     return clients
 }
 
+function getAssignedGroupNumber(clientsID){
+  for(var i=0; i<groups.length; i++) {
+    if(groups[i].clients.length<20){
+      groups[i].clients.push(clientsID);  // ADD USER TO GROUP
+      return groups[i].id;
+    }
+  }
+  return 0;
+}
+
 // Get matching queue number
-function getClientsQueueNumber(clientIp){
+function getClientsQueueNumber(clientID){
     for (var i=0; i < clients.length; i++) {
-        if (clients[i].clientIp === clientIp) {
-            return clients[i].username;
+        if (clients[i].cookie === clientID) {
+            return clients[i].groupNumber;
         }
     }
     return 0;
 }
+function getAllGroups() {
+  console.log(groups);
+  return groups;
+}
+
+function getUsersInGroup(groupID){
+  for (var i=0; i < groups.length; i++) {
+    if (groups[i].id == groupID) {
+        return groups[i].clients;
+    }
+}
+return 0;
+}
 // Join user to chat
 function getAllClients() {
+    console.log(clients);
     return clients;
   }
 
@@ -120,6 +155,7 @@ function deleteAllUsers () {
 module.exports = {
   createClient,
   getClientsQueueNumber,
+  getAllGroups,
   getAllClients,
   userJoin,
   getCurrentUser,
@@ -128,5 +164,6 @@ module.exports = {
   switchQueueNumbers,
   markOpenedChatForUser,
   wipeChatPeers,
-  deleteAllUsers
+  deleteAllUsers,
+  getUsersInGroup
 };
