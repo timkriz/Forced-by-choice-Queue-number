@@ -1,5 +1,22 @@
+@font-face {
+  font-family: 'NeueHaas';
+  src: url('Neue Haas Unica W06 Regular.woff') format('woff'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+   url('Neue Haas Unica W06 Regular.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}  
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: NeueHaas, Helvetica, Arial, sans-serif;
 }
 html {
   height: 100%
@@ -11,7 +28,7 @@ p {
 	font-size: small;
 }
 #bootstrap-overrides{
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: NeueHaas, Helvetica, Arial, sans-serif;
   letter-spacing: 2px;
   padding: 20px;
   height: 100%;
@@ -19,7 +36,10 @@ p {
 #bootstrap-overrides a {
   color: black;
 }
-
+.container {
+  overflow:auto;
+  height: 80%;
+}
 .btn {
 	cursor: pointer;
 	padding: 5px 15px;

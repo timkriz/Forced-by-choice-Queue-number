@@ -1,17 +1,38 @@
 const socket = io();
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
+var username1 = 0;
+var username2 = 0;
+var user1 ={};
+var user2 ={};
 
 // Get username and room numbers
 const matches1 = document.getElementById('username1-name').innerHTML.match(/(\d+)/);
 const matches2 = document.getElementById('username2-name').innerHTML.match(/(\d+)/);
 if (matches1 && matches2) { 
     username1 = matches1[0];
-    username2 = matches2[0]; 
+    username2 = matches2[0];
 }
 else {
     document.getElementById('username1-name').innerHTML = 'Can\'t find the other person.';
 }
+
+socket.emit('get_user_by_username', {username2});
+/*Get numbers of chatting users */
+socket.emit('get_user', '');
+socket.on('user', message => {
+    user1=message;
+    document.getElementById('queueNum1').innerHTML = message.groupNumber;
+    document.getElementById('queueNum11').innerHTML = message.groupNumber;
+    document.getElementById('username1-number').innerHTML = "Number <b>" + message.groupNumber;
+})
+
+socket.on('user_by_username', message => {
+    user2=message;
+    document.getElementById('queueNum2').innerHTML = message.groupNumber;
+    document.getElementById('queueNum22').innerHTML = message.groupNumber;
+    document.getElementById('username2-number').innerHTML = "Number <b>" + message.groupNumber;
+}) 
 
 // Get unique ID for chat room from usernames
 var roomID = getUniqueRoomID(username1, username2);
@@ -126,7 +147,7 @@ const tradeButtonNoResEl = document.getElementById('tradeButtonNoRes');
 
 // Yes
 tradeButtonYesResEl.addEventListener('click', (e)=> {
-    window.location.href = "/success/" + username2;
+    window.location.href = "/success/" + user2.groupNumber;
     socket.emit('approvedTrade', { roomID, username1, username2 });
 })
 //No
@@ -138,11 +159,11 @@ tradeButtonNoResEl.addEventListener('click', (e)=> {
 // Confirm process activate pop up
 socket.on('confirmTradeProcess', ({ roomID, username1, username2 }) => {
     overlayResEl.style.display = "block";
-    console.log(username1 , " wants to trade numbers with you.");
+    console.log("User ", username1 , " wants to trade numbers with you.");
 });
 // Returned approved response for number trade
 socket.on('approvedTradeToUser', ({ roomID, username1, username2 }) => {
-    window.location.href = "/success/" + username1;
+    window.location.href = "/success/" + user2.groupNumber;
     console.log(username1 , " wants to trade numbers with you.");
 });
 // Returned rejection response for number trade

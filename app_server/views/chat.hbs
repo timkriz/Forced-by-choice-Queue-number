@@ -1,31 +1,21 @@
-<div class="chat-container">
-  <header class="chat-header">
-      <a href="/trade" class="btn" style="
-    margin-bottom: 20px">Back</a>
+<div class="chat-container container">
+  <!--<header class="chat-header">
       <a id = "tradeButton"href="#" onclick='return tradeButtonClick()' class="btn" style="
     margin-bottom: 20px; color: white">TRADE</a>
-    </header>
+    </header>-->
   <!--<a href="/trade" class="btn" style="
     margin-bottom: 20px">Back</a>-->
-    <header class="chat-header" style = "
-    border-bottom: 3px solid rgb(0, 0, 0)">
-      <h1 id = "username2-name" class="fas fa-smile"> User: {{username2}}</h1>
-      <h1 id = "username1-name" class="fas fa-smile"> You: {{username1}}</h1>
+    <header class="chat-header">
+      <h1 id = "username2-number" class="fas fa-smile"> Number <b>{{username2}}</b></h1>
+      <h1 id = "username1-number" class="fas fa-smile"> Number <b>{{username1}}</b></h1>
     </header>
-    <main class="chat-main">
-     <!-- <div class="chat-sidebar">
-        <h3><i class="fas fa-comments"></i> Room Name:</h3>
-        <h2 id="username2-name">{{username1}}</h2>
-        <h3><i class="fas fa-users"></i> Users</h3>
-        <ul id="users">
-          <li id="username1-name">{{username2}}</li>
-        </ul>
-      </div>-->
-      <div class="chat-messages">
-				
-      </div>
-    </main>
-    <div class="chat-form-container">
+    <header class="chat-header" style = "border-bottom: 3px solid rgb(0, 0, 0)">
+      <h1 id = "username2-name" class="fas fa-smile"> User <b>{{username2}}</b></h1>
+      <h1 id = "username1-name" class="fas fa-smile"> You <b>{{username1}}</b></h1>
+    </header>
+    
+      <div class="chat-messages"></div>
+      <div class="chat-form-container">
       <form id="chat-form">
         <input
           id="msg"
@@ -36,7 +26,14 @@
         />
         <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
       </form>
-    </div>
+      </div>
+      <div style="
+    text-align: right;
+">
+        <a id = "tradeButton"href="#" onclick='return tradeButtonClick()' class="btn" style="
+    margin: 10px; color: white">TRADE</a>
+      </div>
+    
   </div>
 
 
@@ -47,9 +44,9 @@
         <!--Text inside pop up -->
         <div>
           <p>Are you certain </br> you want to trade </br> your number</p>
-          <h1>{{username1}}</h1>
+          <h1 id = "queueNum1">{{username1}}</h1>
           <p>for the number</p>
-          <h1>{{username2}}</h1>
+          <h1 id = "queueNum2">{{username2}}</h1>
         </div>
         <div class = "yesNoSegment">
           <a id = "tradeButtonYes" href="#" class="btn" style = "color: white">YES</a>
@@ -65,9 +62,9 @@
         <div>
           <p>User {{username2}} wants to trade numbers.</p>
           <p>Are you certain </br> you want to trade </br> your number</p>
-          <h1>{{username1}}</h1>
+          <h1 id = "queueNum11">{{username1}}</h1>
           <p>for the number</p>
-          <h1>{{username2}}</h1>
+          <h1 id = "queueNum22">{{username2}}</h1>
         </div>
         <div class = "yesNoSegment">
           <a id = "tradeButtonYesRes" href="#" class="btn" style = "color: white">YES</a>
@@ -75,6 +72,22 @@
         </div>
     </div>
 </div>
+
+<nav class="navbar navbar-expand fixed-bottom custom-navbar-style mb-4">
+    <div class="navbar-collapse collapse justify-content-center">
+        <ul class="nav pt-1 justify-content-between">
+            <li class="nav-item">
+                <a class="nav-link" href="/trade">Back</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/complaint">Complain<br> about it</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/control">Track<br> visitors</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

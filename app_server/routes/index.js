@@ -29,7 +29,7 @@ router.get('/home', function(req, res){
 router.get('/trade', ctrlMain.tradeNumber);
 router.get('/complaint', ctrlMain.complaint);
 router.get('/justagame', ctrlMain.justagame);
-router.get('/chat/:username1/:username2', ctrlMain.chat);
+router.get('/tradeingroup/chat/:username1/:username2', ctrlMain.chat);
 router.get('/control', ctrlMain.control);
 router.get('/success/:newusername', ctrlMain.success);
 router.get('/rejection', ctrlMain.rejection);

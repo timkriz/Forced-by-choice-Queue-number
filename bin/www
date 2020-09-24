@@ -136,6 +136,13 @@ io.on('connection', socket => {
     socket.emit('users_in_group', users.getUsersInGroup(groupID));
   });
 
+  socket.on('get_user', ({username}) => {
+    socket.emit('user', users.getCurrentUser(clientID));
+  });
+  socket.on('get_user_by_username', ({username2}) => {
+    socket.emit('user_by_username', users.getClientWithUsername(username2));
+  });
+
   // Send list of chat peers
   socket.emit('ChatPeers', users.getCurrentUser(clientID).chatPeers);
 
@@ -162,9 +169,13 @@ io.on('connection', socket => {
 
   // When user 2 confirms trade process
   socket.on('approvedTrade', ({ roomID, username1, username2 }) => {
-    if(users.switchQueueNumbers(clientID, username1, username2)){
+    if(users.switchQueueNumbers(clientID, username1, username2) == 1){
+      
+      console.log("ta if stavek")
       rooms.wipeChatLogs(roomID.toString());
+      console.log("chatroom deleted")
       users.wipeChatPeers(username1, username2);
+      console.log("chatpeers deleted")
       socket
       .to(roomID.toString())
       .emit ('approvedTradeToUser', { roomID, username1, username2 });

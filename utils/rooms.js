@@ -30,9 +30,11 @@ function pushNewMessage(roomID, message) {
     return message;
 }
 function wipeChatLogs(roomID) {
+    console.log("chat sobe: ", rooms)
     for (var i=0; i < rooms.length; i++) {
-        if (rooms[i].roomID === roomID) {
+        if (rooms[i].roomID == roomID) {
             rooms[i].chatLogs.length = 0;
+            console.log("zbrisan chat: ", rooms[i].chatLogs)
         }
     }
     return 0;
