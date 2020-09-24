@@ -34,6 +34,12 @@ var admin1 = (req, res) => {
 var tradeingroup = (req, res) => {
     res.render('tradeingroup', {title: 'Trade in group', groupID: req.params.groupID});
 };
+var contact = (req, res) => {
+    res.render('contact', {title: 'Contact'});
+};
+var disclaimer = (req, res) => {
+    res.render('disclaimer', {title: 'Disclaimer'});
+};
 module.exports = {
     home,
     tradeNumber,
@@ -44,5 +50,7 @@ module.exports = {
     success,
     rejection,
     admin1,
-    tradeingroup
+    tradeingroup,
+    contact,
+    disclaimer
 }

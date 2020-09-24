@@ -35,6 +35,8 @@ router.get('/success/:newusername', ctrlMain.success);
 router.get('/rejection', ctrlMain.rejection);
 router.get('/admin1', ctrlMain.admin1);
 router.get('/tradeingroup/:groupID', ctrlMain.tradeingroup);
+router.get('/contact', ctrlMain.contact);
+router.get('/disclaimer', ctrlMain.disclaimer);
 
 
 module.exports = router;
