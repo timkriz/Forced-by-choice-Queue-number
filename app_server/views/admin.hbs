@@ -1,18 +1,34 @@
 <div class="container justify-content-center" style = "height: 100%">
         <h1 id = "justagame">ADMIN</h1>
         <button id = "myBtn"> Delete users from database</button>
-        <div id = "trade-number-list" class="list-group list-unstyled">
-
-        </div>
+        
+        <button id = "myBtnStartTimer"> Start Timer</button>
+        <div id = "trade-number-list" class="list-group list-unstyled"></div>
+        <p>ALL VISITORS: {{PageVisited}}</p>
+        <p>homePageVisited: {{homePageVisited}}</p>
+        <p>tradeNumberPageVisited: {{tradeNumberPageVisited}}</p>
+        <p>complaintPageVisited: {{complaintPageVisited}}</p>
+        <p>justAgamePageVisited: {{justAgamePageVisited}}</p>
+        <p>chatPageVisited: {{chatPageVisited}}</p>
+        <p>controlPageVisited: {{controlPageVisited}}</p>
+        <p>successPageVisited: {{successPageVisited}}</p>
+        <p>rejectionPageVisited: {{rejectionPageVisited}}</p>
+        <p>tradeingroupPageVisited: {{tradeingroupPageVisited}}</p>
+        <p>contactPageVisited: {{contactPageVisited}}</p>
+        <p>disclaimerPageVisited: {{disclaimerPageVisited}}</p>
 </div>
-
 <script src = "/socket.io/socket.io.js"></script>
 <script>
     const socket = io();
     var x = document.getElementById("myBtn");
+    var y = document.getElementById("myBtnStartTimer");
     x.addEventListener("click", function() {
         console.log("DELETED USERS DATABASE");
         socket.emit('deleteUsersDatabase', {});
+    });
+    y.addEventListener("click", function() {
+        alert("Countdown started!");
+        socket.emit('setTimer', 'begin Countdown');
     });
 
     socket.on('deletedDatabase', (message) => {

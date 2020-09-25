@@ -21,7 +21,7 @@
 }
 
 .textinput {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: NeueHaas, Helvetica, Arial, sans-serif;
     letter-spacing: 2px;
     padding: 20px;
     float: left;
@@ -50,7 +50,7 @@
 
 .buttonsubmit {
     background-color: black;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family:NeueHaas,  Helvetica, Arial, sans-serif;
     letter-spacing: 2px;
     color: white;
     border: none;

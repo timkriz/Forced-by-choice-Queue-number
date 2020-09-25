@@ -6,12 +6,12 @@
   <!--<a href="/trade" class="btn" style="
     margin-bottom: 20px">Back</a>-->
     <header class="chat-header">
-      <h1 id = "username2-number" class="fas fa-smile"> Number <b>{{username2}}</b></h1>
-      <h1 id = "username1-number" class="fas fa-smile"> Number <b>{{username1}}</b></h1>
+      <h1 id = "username2-number" class="fas fa-smile"> Group <b>{{username2}}</b></h1>
+      <h1 id = "username1-number" class="fas fa-smile"> Group <b>{{username1}}</b></h1>
     </header>
     <header class="chat-header" style = "border-bottom: 3px solid rgb(0, 0, 0)">
-      <h1 id = "username2-name" class="fas fa-smile"> User <b>{{username2}}</b></h1>
-      <h1 id = "username1-name" class="fas fa-smile"> You <b>{{username1}}</b></h1>
+      <h1 id = "username2-name" class="fas fa-smile"> Visitor <b>{{username2}}</b></h1>
+      <h1 id = "username1-name" class="fas fa-smile"> Visitor <b>{{username1}}</b></h1>
     </header>
     
       <div class="chat-messages"></div>
@@ -28,7 +28,7 @@
       </form>
       </div>
       <div style="
-    text-align: right;
+    text-align: center;
 ">
         <a id = "tradeButton"href="#" onclick='return tradeButtonClick()' class="btn" style="
     margin: 10px; color: white">TRADE</a>
@@ -60,10 +60,10 @@
         <div class="popupCloseButtonRes">&times;</div>
         <!--Text inside pop up -->
         <div>
-          <p>User {{username2}} wants to trade numbers.</p>
-          <p>Are you certain </br> you want to trade </br> your number</p>
+          <p>Visitor {{username2}} wants to trade group numbers.</p>
+          <p>Are you certain </br> you want to trade </br> group number</p>
           <h1 id = "queueNum11">{{username1}}</h1>
-          <p>for the number</p>
+          <p>for group number</p>
           <h1 id = "queueNum22">{{username2}}</h1>
         </div>
         <div class = "yesNoSegment">

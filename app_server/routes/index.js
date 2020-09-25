@@ -3,14 +3,20 @@ var router = express.Router();
 var ctrlMain = require('../controllers/main');
 var uniqid = require('uniqid');
 
+//statistics
 
 /* GET home page. */
 
+var PageVisited = 0;
+var homePageVisited = 0;
+
 router.get('/', function(req, res){
-    res.render('index', { title: 'Get Queue Number'});
+    PageVisited++;
+    res.render('index', { title: 'Enter'});
 });
 
 router.get('/home', function(req, res){
+    homePageVisited++;
     // check if client sent cookie
     var cookie = req.cookies.cookieName;
     if (cookie === undefined) {
@@ -37,6 +43,13 @@ router.get('/admin1', ctrlMain.admin1);
 router.get('/tradeingroup/:groupID', ctrlMain.tradeingroup);
 router.get('/contact', ctrlMain.contact);
 router.get('/disclaimer', ctrlMain.disclaimer);
+router.get('/about', ctrlMain.about);
 
+router.get('/admin2', (req, res) => {
+    res.render('admin', {title: 'Admin2', 
+    PageVisited: PageVisited,
+    homePageVisited: homePageVisited
+    });
+});
 
 module.exports = router;

@@ -98,8 +98,15 @@ const formatMessage = require('../utils/messages');
 const users = require('../utils/users');
 const rooms = require('../utils/rooms');
 const botName = '';
+var firstDostop = 0;
+var activeFirstGroup = 1;
+var activeSecondGroup = 1;
+var activeThirdGroup = 1;
+var timerCheck =0;
 
 io.on('connection', socket => {
+  firstDostop++;
+  
   socket.on('joinRoom', ({ roomID, username1, username2 }) => {
     if(roomID && username1 && username2){
       rooms.createRoom(roomID.toString(), username1, username2);
@@ -114,7 +121,7 @@ io.on('connection', socket => {
       
 
       // Now chatting message
-      socket.emit('message', formatMessage(botName, 'Now chatting with user '+ username2.toString()));
+      socket.emit('message', formatMessage(botName, 'Now chatting with visitor '+ username2.toString()));
     }
   });
 
@@ -125,6 +132,16 @@ io.on('connection', socket => {
   
   users.createClient(clientID);
 
+  var clientsQnum = users.getClientsQueueNumber(clientID);
+  if(activeFirstGroup == 0) socket.emit('unactive_group', {clientsQnum: clientsQnum,grNum: '541'});
+  if(activeSecondGroup == 0) socket.emit('unactive_group', {clientsQnum: clientsQnum,grNum: '356'});
+  if(activeThirdGroup == 0) socket.emit('unactive_group', {clientsQnum: clientsQnum, grNum: '987'});
+  
+
+  socket.on('check_if_group_active', (grIx) => {
+    var isActive = users.checkIfGroupActive(grIx);
+    socket.emit('if_group_active', {numberIX: grIx, isActive: isActive, clientsNumber: clientsQnum});
+  });
   // First connection on webpage
   socket.emit('first_connection', formatMessage(users.getClientsQueueNumber(clientID), 'Your queue number'));
 
@@ -206,6 +223,33 @@ io.on('connection', socket => {
     rooms.deleteAllRooms();
     socket.emit('deletedDatabase', "You deleted users and rooms. Fresh restart.");
   });
+  socket.on('setTimer', (message) =>{
+    console.log("countdown started" + message)
+    timerCheck = timerCheck+ 1;
+    console.log(timerCheck);
+
+    if(timerCheck >= 1){
+      console.log("zacni cettimeoute");
+      setTimeout(function(){ 
+        //emit('unactive_group', '541');
+        activeFirstGroup=0;
+        users.wipeGroup('0');
+        console.log("deleted group 541")}, 1800000);
+      setTimeout(function(){ 
+        //socket.emit('unactive_group', '356');
+        activeSecondGroup=0;
+        users.wipeGroup('1');
+        console.log("deleted group 356");
+      }, 1800000 * 2);
+      setTimeout(function(){ 
+        //socket.emit('unactive_group', '987');
+        activeThirdGroup=0;
+        users.wipeGroup('2');
+        console.log("deleted group 987");
+  
+      }, 1800000 * 3);
+    } 
+  });
   socket.on('disconnect', function () {
     io.sockets.emit('user disconnected');
   });
@@ -216,6 +260,9 @@ io.on('connection', socket => {
 
 
 function getCookieValue(a, cookie) {
+  if(cookie){
   var b = cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
   return b ? b.pop() : '';
+  }
+  else 0
 }

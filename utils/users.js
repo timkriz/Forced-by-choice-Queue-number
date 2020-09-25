@@ -1,10 +1,11 @@
 
 var clients = [];
-var groups = [{id:'541', clients: [0,1,2,3,4,5,6,7,8,9,10, 11, 12, 13,14,15]}, {id:'356', clients: []}, 
-              {id:'987', clients: []}, {id:'002', clients: []}];
+var groups = [{id:'541', clients: [], active: 1}, {id:'356', clients: [], active: 1}, 
+              {id:'987', clients: [], active: 1}];
 
-var clientIDincrement = 16;
+var clientIDincrement = 0;
 var groupsSpot = 0;
+
 
 class client {
     constructor(cookie) {
@@ -36,31 +37,34 @@ function createClient(cookie) {
 }
 
 function getAssignedGroupNumber(clientsID){
-  var allGroupsAreFull = 0;
+  var zz = clientsID % groups.length;
+  groups[zz].clients.push(clientsID);  // ADD USER TO GROUP
+  return groups[zz].id;
+  /*var allGroupsAreFull = 0;
   for(var i=0; i<groups.length; i++) {
-    if(groups[i].clients.length<20){
+    if(groups[i].clients.length<10){
       groups[i].clients.push(clientsID);  // ADD USER TO GROUP
       return groups[i].id;
     }
-    if(i == groups.length-1 && groups[i].clients.length == 20){
+    if(i == groups.length-1 && groups[i].clients.length == 10){
       allGroupsAreFull = 1;
     }
-  }
+  }/*
   if(allGroupsAreFull){
     // reduce to less than 80
-    var reduced = groupsSpot % 80;
+    var reduced = groupsSpot % 40;
     var groupNum = 0;
     // Which group
-    if(reduced<20) groupNum = 0;
-    if(reduced>=20 && reduced <40) groupNum = 1;
-    if(reduced>=40 && reduced <60) groupNum = 2;
-    if(reduced>=60 && reduced <80) groupNum = 3;
+    if(reduced<10) groupNum = 0;
+    if(reduced>=10 && reduced <20) groupNum = 1;
+    if(reduced>=20 && reduced <30) groupNum = 2;
+    if(reduced>=30 && reduced <40) groupNum = 3;
 
-        groups[groupNum].clients[groupsSpot%20] = clientsID;  // ADD USER TO GROUP
-        console.log("razvrščen v skupino:"+ groupNum + "na mesto: " + groupsSpot %20);
+        groups[groupNum].clients[groupsSpot%10] = clientsID;  // ADD USER TO GROUP
+        console.log("razvrščen v skupino:"+ groupNum + "na mesto: " + groupsSpot %10);
         groupsSpot++;
         return groups[0].id;
-  }
+  }*/
   return 0;
 }
 
@@ -208,6 +212,16 @@ function deleteAllUsers () {
   console.log(clients)
   return 0;
 } 
+function wipeGroup(grogroupIx){
+  groups[grogroupIx].clients.length=0;
+  groups[grogroupIx].active = 0;
+}
+function checkIfGroupActive(grogroupIx){
+    if(groups[grogroupIx].active==0) {
+      return 0;
+    }  
+    else return 1;
+  }
 module.exports = {
   createClient,
   getClientsQueueNumber,
@@ -222,5 +236,7 @@ module.exports = {
   markOpenedChatForUser,
   wipeChatPeers,
   deleteAllUsers,
-  getUsersInGroup
+  getUsersInGroup,
+  wipeGroup,
+  checkIfGroupActive
 };

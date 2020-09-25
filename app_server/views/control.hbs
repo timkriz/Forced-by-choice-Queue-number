@@ -3,7 +3,7 @@
 
 <div class="justify-content-center" style="text-align: center;">
     <div id = "yourNumberIs">
-        <h1 id = "yourNumberIsh1" style = "margin-bottom:30px; text-align: left">You are now tracking the visitors
+        <h1 id = "yourNumberIsh1" style = "margin-bottom:15px; text-align: left">You are now tracking the visitors
 inside the building:</h1>
     </div>
     <div id = "draw-shapes" style="text-align:center;"></div>
@@ -64,7 +64,7 @@ function init(){
      var c = canvas.getContext('2d');
 
      var container = {x:0,y:0,width:350,height:500};
-     var speed = 0.1;
+     var speed = 0.03;
      var circles = [{x:300,y:200,r:3,color:0,vx:speed,vy:speed},
                     {x:300,y:200,r:3,color:0,vx:-speed,vy:speed},
                     {x:200,y:145,r:3,color:0,vx:speed,vy:-speed},
@@ -76,10 +76,10 @@ function init(){
                     {x:111,y:20,r:3,color:0,vx:speed,vy:-speed},
                     {x:111,y:20,r:3,color:0,vx:speed,vy:-speed},
 
-                    {x:330,y:170,r:3,color:0,vx:-speed,vy:-speed},
+                 /*   {x:330,y:170,r:3,color:0,vx:-speed,vy:-speed},
                     {x:280,y:200,r:3,color:0,vx:speed,vy:speed},
                     {x:40,y:140,r:3,color:0,vx:-speed,vy:speed},
-                    {x:160,y:145,r:3,color:0,vx:speed,vy:-speed}
+                    {x:160,y:145,r:3,color:0,vx:speed,vy:-speed}*/
      ];
      /*
      
@@ -92,12 +92,12 @@ function init(){
                     {x:210,y:45,r:3,color:0,vx:speed,vy:-speed},
      */
      var circles_outside = [                    
-                    {x:280,y:320,r:3,color:0,vx:-speed,vy:speed},
-                    {x:290,y:310,r:3,color:0,vx:speed,vy:-speed},
-                    {x:260,y:310,r:3,color:0,vx:speed,vy:speed},
-                    {x:205,y:260,r:3,color:0,vx:-speed,vy:speed}
+                    {x:280,y:260,r:3,color:0,vx:-speed,vy:speed},
+                    {x:290,y:280,r:3,color:0,vx:speed,vy:-speed},
+                    /*{x:260,y:310,r:3,color:0,vx:speed,vy:speed},
+                    {x:205,y:260,r:3,color:0,vx:-speed,vy:speed}*/
      ];
-     var outsideArea = {x:200,y:250,width:100,height:100};
+    var outsideArea = {x:200,y:220,width:100,height:50};
     var planBottom = 205;
     var planLeft = 2;
     var planRight = 348;

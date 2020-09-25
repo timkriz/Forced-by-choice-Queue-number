@@ -24,14 +24,14 @@ socket.on('user', message => {
     user1=message;
     document.getElementById('queueNum1').innerHTML = message.groupNumber;
     document.getElementById('queueNum11').innerHTML = message.groupNumber;
-    document.getElementById('username1-number').innerHTML = "Number <b>" + message.groupNumber;
+    document.getElementById('username1-number').innerHTML = "Group <b>" + message.groupNumber;
 })
 
 socket.on('user_by_username', message => {
     user2=message;
     document.getElementById('queueNum2').innerHTML = message.groupNumber;
     document.getElementById('queueNum22').innerHTML = message.groupNumber;
-    document.getElementById('username2-number').innerHTML = "Number <b>" + message.groupNumber;
+    document.getElementById('username2-number').innerHTML = "   Group <b>" + message.groupNumber;
 }) 
 
 // Get unique ID for chat room from usernames
@@ -87,7 +87,7 @@ function outputMessage(message) {
     </p>`;
     }
     else {
-        div.innerHTML = `<p class="meta">User ${message.username} <span>${message.time}</span></p>
+        div.innerHTML = `<p class="meta">Visitor ${message.username} <span>${message.time}</span></p>
         <p class="text">
             ${message.text}
         </p>`;
@@ -121,7 +121,7 @@ function tradeButtonClick () {
 
 // Yes
 tradeButtonYesEl.addEventListener('click', (e)=> {
-    console.log("YAAAASS")
+    //console.log("YAAAASS")
     const newLoadingMessage = document.createElement('p');
     newLoadingMessage.innerHTML = "Waiting for confirmation ...";
     PopUpWindowEl.appendChild(newLoadingMessage);
@@ -130,7 +130,7 @@ tradeButtonYesEl.addEventListener('click', (e)=> {
 //No
 tradeButtonNoEl.addEventListener('click', (e)=> {
     overlayEl.style.display = "none";
-    console.log("NOOO")
+    //console.log("NOOO")
 })
 // Close pop up
 closePopUpButton.addEventListener('click', (e)=> {
@@ -154,17 +154,17 @@ tradeButtonYesResEl.addEventListener('click', (e)=> {
 tradeButtonNoResEl.addEventListener('click', (e)=> {
     overlayEl.style.display = "none";
     socket.emit('disapprovedTrade', { roomID, username1, username2 });
-    console.log("NOOO")
+    console.log("NOOO");
 })
 // Confirm process activate pop up
 socket.on('confirmTradeProcess', ({ roomID, username1, username2 }) => {
     overlayResEl.style.display = "block";
-    console.log("User ", username1 , " wants to trade numbers with you.");
+    console.log("User ", username1 , " wants to trade group number with you.");
 });
 // Returned approved response for number trade
 socket.on('approvedTradeToUser', ({ roomID, username1, username2 }) => {
     window.location.href = "/success/" + user2.groupNumber;
-    console.log(username1 , " wants to trade numbers with you.");
+    console.log(username1 , " wants to trade group number with you.");
 });
 // Returned rejection response for number trade
 socket.on('disapprovedTradeToUser', ({ roomID, username1, username2 }) => {

@@ -9,22 +9,33 @@ socket.on('user', message => {
     console.log(message);
     clients_username = message.username;
 })
-
-
 //Message from server
 socket.emit('get_users_in_group', ({ groupID }));
-
 socket.on('users_in_group', message => {
     console.log(message);
     outputMessage(message);
 })
 
+socket.on('ChatPeers', chat_peers => {
+    console.log(chat_peers);
+    setInterval(function(){ 
+        for (var i=0; i<chat_peers.length; i++){
+            console.log("id naj bi bil ", chat_peers[i])
+            var elemen = document.getElementById(chat_peers[i]);
+            console.log(elemen);
+            elemen.style.color ='red';
+        }
+
+    }, 2000);
+});
+
+
 function outputMessage(message) {
     if (message.length < 1) {
         const itemEl = document.createElement('a');
-        itemEl.classList.add('custom-list-item-a');
+        //itemEl.classList.add('custom-list-item-a');
         itemEl.setAttribute('style', "font-size: 1em")
-        itemEl.innerHTML = "There is no users in this group";
+        itemEl.innerHTML = "There is no visitors in this group";
         listEl.appendChild(itemEl);  
     }
     for(var i = 0; i<message.length; i++){
