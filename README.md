@@ -7,6 +7,12 @@ MORE INFO: https://nanotourism.aaschool.ac.uk/home/?fbclid=IwAR1zS03Qb6UzTNhIFwb
 Web app is accessible via QR code at the entrance and helps organize the froming queue. 
 A visitor receives a number that can be later switched by chatting with other visitors within an app.
 
+<p align="center">
+<img src="https://github.com/timkriz/queue-number-2/blob/master/forced_by_choice.jpg" width="500">
+<img src="https://github.com/timkriz/queue-number-2/blob/master/forced_by_choice2.jpg" width="500">
+<img src="https://github.com/timkriz/queue-number-2/blob/master/forced_by_choice3.jpg" width="500">
+</p>
+
 
 ## Installation
 
